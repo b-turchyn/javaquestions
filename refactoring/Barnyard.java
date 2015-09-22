@@ -1,7 +1,15 @@
 import java.util.ArrayList;
 
+import animals.Animal;
+import animals.Cat;
+import animals.Chicken;
+import animals.Cow;
+import animals.Dog;
+import animals.Duck;
+import animals.Pig;
+
 public class Barnyard {
-    private static final ArrayList animals = buildAnimals();
+    private static final ArrayList< ? extends Animal > animals = buildAnimals();
     public static void main (String[] args) {
         int housepets = 0;
         int mammals = 0;
@@ -9,65 +17,21 @@ public class Barnyard {
         int withFourLegs = 0;
         int withTwoLegs = 0;
         
-        for( int i = 0; i < animals.size( ); i++ ) {
-            Object animal = animals.get( i );
-            
-            if ( animal instanceof Cat ) {
-                Cat cat = (Cat)animal;
-                System.out.println( cat.getName( ) + " the Cat says " + cat.speak( ) + "; " +
-                        "legs = " + cat.getLegs( ) + "; " +
-                		"mammal = " + cat.isMammal( ) + "; " +
-                        "bird = " + cat.isBird( ) + "; " +
-                        "housepet = " + cat.isHousepet( ) );
+        for ( Animal animal : animals ) {
+            System.out.println( animal );
+            if ( animal.isHousepet( ) ) {
                 housepets++;
+            }
+            if ( animal.isMammal( ) ) {
                 mammals++;
-                withFourLegs++;
-            } else if ( animal instanceof Chicken ) {
-                Chicken chicken = (Chicken)animal;
-                System.out.println( chicken.getName( ) + " the Chicken says " + chicken.speak( ) + "; " +
-                        "legs = " + chicken.getLegs( ) + "; " +
-                		"mammal = " + chicken.isMammal( ) + "; " +
-                        "bird = " + chicken.isBird( ) + "; " +
-                        "housepet = " + chicken.isHousepet( ) );
+            }
+            if ( animal.isBird( ) ) {
                 birds++;
+            }
+            if ( animal.getLegs( ).equals( 4 ) ) {
+                withFourLegs++;
+            } else if ( animal.getLegs( ).equals( 2 ) ) {
                 withTwoLegs++;
-            } else if ( animal instanceof Cow ) {
-                Cow cow = (Cow)animal;
-                System.out.println( cow.getName( ) + "the Cow says " + cow.speak( ) + "; " +
-                		"legs = " + cow.getLegs( ) + "; " +
-                		"mammal = " + cow.isMammal( ) + "; " +
-                        "bird = " + cow.isBird( ) + "; " +
-                        "housepet = " + cow.isHousepet( ) );
-                mammals++;
-                withFourLegs++;
-            } else if ( animal instanceof Dog ) {
-                Dog dog = (Dog)animal;
-                System.out.println( dog.getName( ) + " the Dog says " + dog.speak( ) + "; " +
-                		"legs = " + dog.getLegs( ) + "; " +
-                		"mammal = " + dog.isMammal( ) + "; " +
-                        "bird = " + dog.isBird( ) + "; " +
-                        "housepet = " + dog.isHousepet( ) );
-                housepets++;
-                mammals++;
-                withFourLegs++;
-            } else if ( animal instanceof Duck ) {
-                Duck duck = (Duck)animal;
-                System.out.println( duck.getName( ) + " the Duck says " + duck.speak( ) + "; " +
-                		"legs = " + duck.getLegs( ) + "; " +
-                		"mammal = " + duck.isMammal( ) + "; " +
-                        "bird = " + duck.isBird( ) + "; " +
-                        "housepet = " + duck.isHousepet( ) );
-                birds++;
-                withTwoLegs++;
-            } else if ( animal instanceof Pig ) {
-                Pig pig = (Pig)animal;
-                System.out.println( pig.getName( ) + "the Pig says " + pig.speak( ) + "; " +
-                		"legs = " + pig.getLegs( ) + "; " +
-                		"mammal = " + pig.isMammal( ) + "; " +
-                        "bird = " + pig.isBird( ) + "; " +
-                        "housepet = " + pig.isHousepet( ) );
-                mammals++;
-                withFourLegs++;
             }
         }
         
@@ -87,10 +51,10 @@ public class Barnyard {
      * your refactoring. Assume that this is the equivalent of pulling
      * the animals out of the database in some nice, clean fashion.
      * 
-     * @return a new {@link ArrayList} of various animals
+     * @return a new {@link Vector} of various animals
      */
-    private static ArrayList buildAnimals( ) {
-        final ArrayList result = new ArrayList( );
+    private static ArrayList< Animal > buildAnimals( ) {
+        final ArrayList< Animal > result = new ArrayList< Animal >( );
         
         result.add( new Pig( "Babe" ) );
         result.add( new Cat( "Nova" ) );
